@@ -1,0 +1,17 @@
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 880px;
+    min-height: 18px;
+    margin: 0 auto;
+    padding: 0 19px;
+    padding-bottom: 60px;
+}
+
+@media (max-width: 800px) {
+    .footer {
+        min-height: 14px;
+        padding-bottom: 36px;
+        /* margin-bottom: 36px; */
+    }
+}
