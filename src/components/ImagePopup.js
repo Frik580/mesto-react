@@ -5,7 +5,7 @@ function ImagePopup({ selectedCard, onClose }) {
 
   return (
     <div
-      className={`popup popup_zoom popup_dark ` + (!isEmpty && "popup_opened")}
+      className={`popup popup_zoom popup_dark ${!isEmpty && "popup_opened"}`}
     >
       <div className="popup__zoom-conteiner">
         <button
