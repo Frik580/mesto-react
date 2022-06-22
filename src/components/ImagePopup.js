@@ -1,11 +1,11 @@
 function ImagePopup({ selectedCard, onClose }) {
+  let isEmpty =
+    Object.keys(selectedCard).length === 0 &&
+    selectedCard.constructor === Object;
+
   return (
     <div
-      className={
-        selectedCard
-          ? `popup popup_zoom popup_dark popup_opened`
-          : `popup popup_zoom popup_dark`
-      }
+      className={`popup popup_zoom popup_dark ` + (!isEmpty && "popup_opened")}
     >
       <div className="popup__zoom-conteiner">
         <button

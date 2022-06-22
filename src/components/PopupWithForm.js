@@ -34,11 +34,7 @@ function PopupWithForm({
   }, []);
 
   return (
-    <div
-      className={
-        isOpen ? `popup popup_${name} popup_opened` : `popup popup_${name}`
-      }
-    >
+    <div className={`popup popup_${name} ` + (isOpen && "popup_opened")}>
       <div className={`popup__conteiner ${conteinerSize}`}>
         <button
           onClick={onClose}
