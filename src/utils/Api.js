@@ -13,7 +13,7 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
   };
 
-  getInitialCards = () => {
+  getCardList = () => {
     return fetch(`${this._url}/cards`, { headers: this._headers }).then(
       this._handleResponse
     );
@@ -25,7 +25,7 @@ class Api {
     );
   };
 
-  editUserInfo = (data) => {
+  setUserInfo = (data) => {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -41,30 +41,30 @@ class Api {
     }).then(this._handleResponse);
   };
 
-  deleteCard = (id) => {
-    return fetch(`${this._url}/cards/${id}`, {
+  deleteCard = (data) => {
+    return fetch(`${this._url}/cards/${data._id}`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._handleResponse);
   };
 
-  addLike = (data) => {
-    return fetch(`${this._url}/cards/${data._id}/likes`, {
-      method: "PUT",
-      headers: this._headers,
-      body: JSON.stringify(data),
-    }).then(this._handleResponse);
+  changeLikeCardStatus = (data, isLiked) => {
+    if (isLiked) {
+      return fetch(`${this._url}/cards/${data._id}/likes`, {
+        method: "DELETE",
+        headers: this._headers,
+        body: JSON.stringify(data),
+      }).then(this._handleResponse);
+    } else {
+      return fetch(`${this._url}/cards/${data._id}/likes`, {
+        method: "PUT",
+        headers: this._headers,
+        body: JSON.stringify(data),
+      }).then(this._handleResponse);
+    }
   };
 
-  deleteLike = (data) => {
-    return fetch(`${this._url}/cards/${data._id}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-      body: JSON.stringify(data),
-    }).then(this._handleResponse);
-  };
-
-  editAvatar = (data) => {
+  setUserAvatar = (data) => {
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,

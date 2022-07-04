@@ -56,3 +56,5 @@
 @import url(./blocks/popup-form/__button/_disabled/popup-form__button_disabled.css);
 @import url(./blocks/popup-form/__item/_type/popup-form__item_type_error.css);
 @import url(./blocks/popup-form/__item/_error/popup-form__item_error_active.css);
+@import url(../src/blocks/element/__del-button/_hidden/element__del-button_hidden.css);
+@import url(../src/blocks/element/__del-button/_visible/element__del-button_visible.css);

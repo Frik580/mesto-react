@@ -1,11 +1,7 @@
-function ImagePopup({ selectedCard, onClose }) {
-  let isEmpty =
-    Object.keys(selectedCard).length === 0 &&
-    selectedCard.constructor === Object;
-
+function ImagePopup({ сard, onClose }) {
   return (
     <div
-      className={`popup popup_zoom popup_dark ${!isEmpty && "popup_opened"}`}
+      className={`popup popup_zoom popup_dark ${сard.link && "popup_opened"}`}
     >
       <div className="popup__zoom-conteiner">
         <button
@@ -13,12 +9,8 @@ function ImagePopup({ selectedCard, onClose }) {
           className="popup__close-button hover"
           type="button"
         ></button>
-        <img
-          src={selectedCard.url}
-          className="popup__pic"
-          alt={selectedCard.title}
-        />
-        <p className="popup__text">{selectedCard.title}</p>
+        <img src={сard.link} className="popup__pic" alt={сard.name} />
+        <p className="popup__text">{сard.name}</p>
       </div>
     </div>
   );

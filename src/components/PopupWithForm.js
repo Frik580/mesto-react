@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 
 function PopupWithForm({
   name,
@@ -8,10 +8,11 @@ function PopupWithForm({
   onClose,
   conteinerSize,
   children,
+  onSubmit,
 }) {
-  React.useEffect(() => {
-    function handleEscClose(event) {
-      event.key === "Escape" && onClose();
+  useEffect(() => {
+    function handleEscClose(e) {
+      e.key === "Escape" && onClose();
     }
 
     document.addEventListener("keyup", handleEscClose);
@@ -21,9 +22,9 @@ function PopupWithForm({
     };
   }, []);
 
-  React.useEffect(() => {
-    function handleClickOverlay(event) {
-      event.target.classList.contains("popup_opened") && onClose();
+  useEffect(() => {
+    function handleClickOverlay(e) {
+      e.target.classList.contains("popup_opened") && onClose();
     }
 
     document.addEventListener("mousedown", handleClickOverlay);
@@ -42,6 +43,7 @@ function PopupWithForm({
           type="button"
         ></button>
         <form
+          onSubmit={onSubmit}
           className={`popup-form popup-form_${name}`}
           name="user"
           noValidate
