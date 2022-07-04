@@ -16,15 +16,17 @@ function Main({
   return (
     <main className="content">
       <section className="profile">
-        <div className="profile__avatar-box">
-          <img
-            onClick={onEditAvatar}
-            src={currentUser.avatar}
-            className="profile__avatar"
-            alt="Фотография в профайле"
-          />
-          <div className="profile__avatar-ikon"></div>
-        </div>
+        {currentUser.avatar && (
+          <div className="profile__avatar-box">
+            <img
+              onClick={onEditAvatar}
+              src={currentUser.avatar}
+              className="profile__avatar"
+              alt="Фотография в профайле"
+            />
+            <div className="profile__avatar-ikon" />
+          </div>
+        )}
         <div className="profile__info">
           <h1 className="profile__title">{currentUser.name}</h1>
           <p className="profile__text">{currentUser.about}</p>
@@ -32,13 +34,13 @@ function Main({
             onClick={onEditProfile}
             className="profile__edit-button hover"
             type="button"
-          ></button>
+          />
         </div>
         <button
           onClick={onAddPlace}
           className="profile__add-button hover"
           type="button"
-        ></button>
+        />
       </section>
 
       <section className="elements">
@@ -50,7 +52,7 @@ function Main({
               onCardClick={onCardClick}
               onCardDelete={onCardDelete}
               onCardLike={onCardLike}
-            ></Card>
+            />
           ))}
         </ul>
       </section>

@@ -50,7 +50,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           placeholder="Введите имя"
           required
         />
-        <span id="user-name-error" className="error"></span>
+        <span id="user-name-error" className="error" />
       </fieldset>
       <fieldset className="popup-form__conteiner">
         <input
@@ -65,7 +65,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           placeholder="О себе"
           required
         />
-        <span id="about-error" className="error"></span>
+        <span id="about-error" className="error" />
       </fieldset>
     </PopupWithForm>
   );

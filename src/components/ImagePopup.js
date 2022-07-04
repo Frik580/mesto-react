@@ -8,7 +8,7 @@ function ImagePopup({ сard, onClose }) {
           onClick={onClose}
           className="popup__close-button hover"
           type="button"
-        ></button>
+        />
         <img src={сard.link} className="popup__pic" alt={сard.name} />
         <p className="popup__text">{сard.name}</p>
       </div>

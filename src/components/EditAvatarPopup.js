@@ -1,5 +1,5 @@
 import PopupWithForm from "./PopupWithForm";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const inputRef = useRef();
@@ -9,8 +9,11 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     onUpdateAvatar({
       avatar: inputRef.current.value,
     });
-    inputRef.current.value = "";
   }
+
+  useEffect(() => {
+    inputRef.current.value = "";
+  }, [isOpen]);
 
   return (
     <PopupWithForm
@@ -33,7 +36,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
           placeholder="Ссылка на картинку"
           required
         />
-        <span id="avatar-error" className="error"></span>
+        <span id="avatar-error" className="error" />
       </fieldset>
     </PopupWithForm>
   );

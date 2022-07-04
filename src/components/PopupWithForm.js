@@ -22,26 +22,22 @@ function PopupWithForm({
     };
   }, []);
 
-  useEffect(() => {
-    function handleClickOverlay(e) {
-      e.target.classList.contains("popup_opened") && onClose();
-    }
-
-    document.addEventListener("mousedown", handleClickOverlay);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOverlay);
-    };
-  }, []);
-
   return (
-    <div className={`popup popup_${name} ${isOpen && "popup_opened"}`}>
-      <div className={`popup__conteiner ${conteinerSize}`}>
+    <div
+      onClick={onClose}
+      className={`popup popup_${name} ${isOpen && "popup_opened"}`}
+    >
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className={`popup__conteiner ${conteinerSize}`}
+      >
         <button
           onClick={onClose}
           className="popup__close-button hover"
           type="button"
-        ></button>
+        />
         <form
           onSubmit={onSubmit}
           className={`popup-form popup-form_${name}`}

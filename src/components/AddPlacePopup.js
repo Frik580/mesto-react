@@ -1,5 +1,5 @@
 import PopupWithForm from "./PopupWithForm";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const inputCardNameRef = useRef();
@@ -11,9 +11,12 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       name: inputCardNameRef.current.value,
       link: inputCardLinkRef.current.value,
     });
+  }
+
+  useEffect(() => {
     inputCardNameRef.current.value = "";
     inputCardLinkRef.current.value = "";
-  }
+  }, [isOpen]);
 
   return (
     <PopupWithForm
@@ -36,7 +39,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           placeholder="Название"
           required
         />
-        <span id="name-card-error" className="error"></span>
+        <span id="name-card-error" className="error" />
       </fieldset>
       <fieldset className="popup-form__conteiner">
         <input
@@ -49,7 +52,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           placeholder="Ссылка на картинку"
           required
         />
-        <span id="link-error" className="error"></span>
+        <span id="link-error" className="error" />
       </fieldset>
     </PopupWithForm>
   );
