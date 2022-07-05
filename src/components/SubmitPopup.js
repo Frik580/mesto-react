@@ -1,9 +1,16 @@
 import PopupWithForm from "./PopupWithForm";
+import { useState, useEffect } from "react";
 
 function SubmitPopup({ card, isOpen, onClose, onDeleteCard }) {
+  const [buttonValue, setButtonValue] = useState("");
+
+  useEffect(() => {
+    setButtonValue("Да");
+  }, [isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
+    setButtonValue("Удаление...");
     onDeleteCard(card);
   }
 
@@ -11,7 +18,7 @@ function SubmitPopup({ card, isOpen, onClose, onDeleteCard }) {
         <PopupWithForm
         name="submit"
         title="Вы уверены?"
-        buttonValue="Да"
+        buttonValue={buttonValue}
         isOpen={isOpen}
         onClose={onClose}
         onSubmit={handleSubmit}

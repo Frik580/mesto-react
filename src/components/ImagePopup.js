@@ -1,9 +1,15 @@
 function ImagePopup({ сard, onClose }) {
   return (
     <div
+      onClick={onClose}
       className={`popup popup_zoom popup_dark ${сard.link && "popup_opened"}`}
     >
-      <div className="popup__zoom-conteiner">
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className="popup__zoom-conteiner"
+      >
         <button
           onClick={onClose}
           className="popup__close-button hover"
