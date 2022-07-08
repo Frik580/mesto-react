@@ -5,7 +5,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const [buttonValue, setButtonValue] = useState("");
   const inputRef = useRef();
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setButtonValue("Сохранение...");
     onUpdateAvatar({

@@ -1,24 +1,27 @@
 import PopupWithForm from "./PopupWithForm";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const [buttonValue, setButtonValue] = useState("");
-  const inputCardNameRef = useRef();
-  const inputCardLinkRef = useRef();
-  function handleSubmit(e) {
+  const [state, setState] = useState("");
+
+  useEffect(() => {
+    setState({ name: "", link: "" });
+    setButtonValue("Создать");
+  }, [isOpen]);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setButtonValue("Сохранение...");
     onAddPlace({
-      name: inputCardNameRef.current.value,
-      link: inputCardLinkRef.current.value,
+      name: state.namecard,
+      link: state.url,
     });
   }
 
-  useEffect(() => {
-    inputCardNameRef.current.value = "";
-    inputCardLinkRef.current.value = "";
-    setButtonValue("Создать");
-  }, [isOpen]);
+  const handleInputChange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
+  }
 
   return (
     <PopupWithForm
@@ -32,7 +35,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       <fieldset className="popup-form__conteiner">
         <input
           type="text"
-          ref={inputCardNameRef}
+          value={state.namecard ?? ""}
+          onChange={handleInputChange}
           id="name-card"
           name="namecard"
           className="popup-form__item"
@@ -46,9 +50,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       <fieldset className="popup-form__conteiner">
         <input
           type="url"
-          ref={inputCardLinkRef}
+          value={state.url ?? ""}
+          onChange={handleInputChange}
           id="link"
-          name="link"
+          name="url"
           className="popup-form__item"
           minLength="2"
           placeholder="Ссылка на картинку"

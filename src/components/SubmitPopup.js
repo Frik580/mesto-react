@@ -6,9 +6,20 @@ function SubmitPopup({ card, isOpen, onClose, onDeleteCard }) {
 
   useEffect(() => {
     setButtonValue("Да");
+
+    function handleEnterDelete(e) {
+      e.key === "Enter" && handleSubmit(e);
+    }
+
+    document.addEventListener("keyup", handleEnterDelete);
+
+    return () => {
+      document.removeEventListener("keyup", handleEnterDelete);
+    };
+
   }, [isOpen]);
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setButtonValue("Удаление...");
     onDeleteCard(card);

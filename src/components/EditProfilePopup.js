@@ -4,32 +4,26 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [state, setState] = useState("");
   const [buttonValue, setButtonValue] = useState("");
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    setState({ name: currentUser.name, about: currentUser.about });
     setButtonValue("Сохранить");
-  }, [isOpen]);
+  }, [currentUser]);
 
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
+  const handleInputChange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
 
-  function handleChangeDescription(e) {
-    setDescription(e.target.value);
-  }
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setButtonValue("Сохранение...");
     onUpdateUser({
-      name,
-      about: description,
+      name: state.name,
+      about: state.about,
     });
-  }
+  };
 
   return (
     <PopupWithForm
@@ -43,8 +37,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       <fieldset className="popup-form__conteiner">
         <input
           type="text"
-          value={name || false}
-          onChange={handleChangeName}
+          value={state.name ?? ""}
+          onChange={handleInputChange}
           id="user-name"
           name="name"
           className="popup-form__item"
@@ -58,8 +52,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       <fieldset className="popup-form__conteiner">
         <input
           type="text"
-          value={description || false}
-          onChange={handleChangeDescription}
+          value={state.about ?? ""}
+          onChange={handleInputChange}
           id="about"
           name="about"
           className="popup-form__item"
