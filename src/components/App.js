@@ -10,17 +10,8 @@ import AddPlacePopup from "./AddPlacePopup";
 import SubmitPopup from "./SubmitPopup";
 import ImagePopup from "./ImagePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-// import FormValidator from "./FormValidator";
-// import { obj, popupFormSelectors } from "../utils/constants";
 
 function App() {
-  // const validatorEditForm = new FormValidator(obj, popupFormSelectors.edit);
-  // validatorEditForm.enableValidation();
-  // const validatorAddForm = new FormValidator(obj, popupFormSelectors.add);
-  // validatorAddForm.enableValidation();
-  // const validatorAvatarForm = new FormValidator(obj, popupFormSelectors.avatar);
-  // validatorAvatarForm.enableValidation();
-
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -41,7 +32,18 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, [cards]);
+  }, []);
+
+  function reloadCards() {
+    api
+      .getCardList()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   function handleUpdateUser(data) {
     api
@@ -74,6 +76,7 @@ function App() {
         setIsPostCardError(false);
         setCards([newCard, ...cards]);
         closeAllPopups();
+        reloadCards();
       })
       .catch((err) => {
         setIsPostCardError(true);
@@ -108,6 +111,7 @@ function App() {
         });
         setCards(newCards);
         closeAllPopups();
+        reloadCards();
       })
       .catch((err) => {
         console.log(err);
