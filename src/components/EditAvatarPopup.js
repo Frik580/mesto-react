@@ -27,6 +27,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       onClose={onClose}
       onSubmit={handleSubmit}
       conteinerSize="popup__conteiner_size_medium"
+      isValid={true}
     >
       <fieldset className="popup-form__conteiner">
         <input

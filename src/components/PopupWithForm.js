@@ -9,6 +9,7 @@ function PopupWithForm({
   conteinerSize,
   children,
   onSubmit,
+  isValid,
 }) {
   useEffect(() => {
     function handleEscClose(e) {
@@ -46,7 +47,14 @@ function PopupWithForm({
         >
           <h3 className="popup-form__title">{title}</h3>
           {children}
-          <button className="popup-form__button" type="submit" name="button">
+          <button
+            disabled={!isValid}
+            className={`popup-form__button ${
+              !isValid && "popup-form__button_disabled"
+            }`}
+            type="submit"
+            name="button"
+          >
             {buttonValue}
           </button>
         </form>

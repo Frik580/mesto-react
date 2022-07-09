@@ -1,65 +1,91 @@
 import PopupWithForm from "./PopupWithForm";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
   const [buttonValue, setButtonValue] = useState("");
-  const [state, setState] = useState("");
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    reset,
+  } = useForm({
+    mode: "all",
+  });
 
   useEffect(() => {
-    setState({ name: "", link: "" });
+    setTimeout(() => {
+      reset();
+    }, 2000);
+    setButtonValue("Создать");
+  }, [onPostCardError]);
+
+  useEffect(() => {
+    reset();
     setButtonValue("Создать");
   }, [isOpen]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setButtonValue("Сохранение...");
+  const onHandle = (data) => {
     onAddPlace({
-      name: state.namecard,
-      link: state.url,
+      name: data.namecard,
+      link: data.url,
     });
-  }
-
-  const handleInputChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
-  }
+    setButtonValue("Сохранение...");
+  };
 
   return (
     <PopupWithForm
       name="add"
       title="Новое место"
-      buttonValue={buttonValue}
+      buttonValue={
+        onPostCardError ? "Ошибка в ссылке на картинку" : buttonValue
+      }
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onHandle)}
+      isValid={isValid}
     >
       <fieldset className="popup-form__conteiner">
         <input
+          {...register("namecard", {
+            required: "Поле обязательно к заполнению",
+            minLength: {
+              value: 2,
+              message: "Минимум 2 символа",
+            },
+            maxLength: {
+              value: 30,
+              message: "Максимум 30 символов",
+            },
+          })}
           type="text"
-          value={state.namecard ?? ""}
-          onChange={handleInputChange}
-          id="name-card"
-          name="namecard"
-          className="popup-form__item"
-          minLength="2"
-          maxLength="30"
+          className={`popup-form__item ${
+            errors?.namecard && "popup-form__item_type_error"
+          }`}
           placeholder="Название"
-          required
         />
-        <span id="name-card-error" className="error" />
+        <span id="name-card-error" className="error">
+          {errors?.namecard && <p>{errors?.namecard?.message ?? "Error!!!"}</p>}
+        </span>
       </fieldset>
       <fieldset className="popup-form__conteiner">
         <input
+          {...register("url", {
+            required: "Поле обязательно к заполнению",
+            minLength: {
+              value: 2,
+              message: "Минимум 2 символа",
+            },
+          })}
           type="url"
-          value={state.url ?? ""}
-          onChange={handleInputChange}
-          id="link"
-          name="url"
-          className="popup-form__item"
-          minLength="2"
+          className={`popup-form__item ${
+            errors?.url && "popup-form__item_type_error"
+          }`}
           placeholder="Ссылка на картинку"
-          required
         />
-        <span id="link-error" className="error" />
+        <span id="link-error" className="error">
+          {errors?.url && <p>{errors?.url?.message ?? "Error!!!"}</p>}
+        </span>
       </fieldset>
     </PopupWithForm>
   );

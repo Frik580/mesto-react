@@ -33,6 +33,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      isValid={true}
     >
       <fieldset className="popup-form__conteiner">
         <input

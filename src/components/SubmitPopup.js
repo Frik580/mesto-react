@@ -6,17 +6,15 @@ function SubmitPopup({ card, isOpen, onClose, onDeleteCard }) {
 
   useEffect(() => {
     setButtonValue("Да");
+    // function handleEnterDelete(e) {
+    //   e.key === "Enter" && handleSubmit(e);
+    // }
 
-    function handleEnterDelete(e) {
-      e.key === "Enter" && handleSubmit(e);
-    }
+    // document.addEventListener("keyup", handleEnterDelete);
 
-    document.addEventListener("keyup", handleEnterDelete);
-
-    return () => {
-      document.removeEventListener("keyup", handleEnterDelete);
-    };
-
+    // return () => {
+    //   document.removeEventListener("keyup", handleEnterDelete);
+    // };
   }, [isOpen]);
 
   const handleSubmit = (e) => {
@@ -34,6 +32,7 @@ function SubmitPopup({ card, isOpen, onClose, onDeleteCard }) {
         onClose={onClose}
         onSubmit={handleSubmit}
         conteinerSize="popup__conteiner_size_small"
+        isValid={true}
       />
     );
   }

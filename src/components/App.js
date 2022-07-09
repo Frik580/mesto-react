@@ -25,6 +25,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isSubmitPopupOpen, setIsSubmitPopupOpen] = useState(false);
+  const [isPostCardError, setIsPostCardError] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [deletedCard, setDeletedCard] = useState({});
   const [currentUser, setCurrentUser] = useState("");
@@ -40,7 +41,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [cards]);
 
   function handleUpdateUser(data) {
     api
@@ -70,10 +71,15 @@ function App() {
     api
       .postCard(data)
       .then((newCard) => {
+        setIsPostCardError(false);
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
+        setIsPostCardError(true);
+        setTimeout(() => {
+          setIsPostCardError(false);
+        }, 2000);
         console.log(err);
       });
   }
@@ -168,6 +174,7 @@ function App() {
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
+          onPostCardError={isPostCardError}
         />
 
         <SubmitPopup
