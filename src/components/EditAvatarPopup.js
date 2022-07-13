@@ -14,6 +14,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   };
 
   useEffect(() => {
+    inputRef.current.focus();
     inputRef.current.value = "";
     setButtonValue("Сохранить");
   }, [isOpen]);

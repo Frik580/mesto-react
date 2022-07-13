@@ -10,6 +10,7 @@ function PopupWithForm({
   children,
   onSubmit,
   isValid,
+  isFocus,
 }) {
   useEffect(() => {
     function handleEscClose(e) {
@@ -40,13 +41,14 @@ function PopupWithForm({
         <form
           onSubmit={onSubmit}
           className={`popup-form popup-form_${name}`}
-          name="user"
+          name={name}
           noValidate
         >
           <h3 className="popup-form__title">{title}</h3>
           {children}
 
           <button
+            ref={isFocus && ((button) => button && button.focus())}
             disabled={!isValid}
             className={`popup-form__button ${
               !isValid && "popup-form__button_disabled"

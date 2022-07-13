@@ -38,6 +38,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       <fieldset className="popup-form__conteiner">
         <input
           type="text"
+          ref={(input) => input && input.focus()}
           value={state.name ?? ""}
           onChange={handleInputChange}
           id="user-name"

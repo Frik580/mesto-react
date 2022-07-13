@@ -11,11 +11,24 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
     reset,
   } = useForm({
     mode: "all",
-    // defaultValues: {
-    //   namecard: "ffff",
-    //   url: "cccc",
-    // },
   });
+
+  const { ref, ...rest } = register("namecard", {
+    required: "Поле обязательно к заполнению",
+    minLength: {
+      value: 2,
+      message: "Минимум 2 символа",
+    },
+    maxLength: {
+      value: 30,
+      message: "Максимум 30 символов",
+    },
+  });
+
+  useEffect(() => {
+    setButtonValue("Создать");
+    reset();
+  }, [isOpen]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -23,11 +36,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
     }, 2000);
     setButtonValue("Создать");
   }, [onPostCardError]);
-
-  useEffect(() => {
-    reset();
-    setButtonValue("Создать");
-  }, [isOpen]);
 
   const onHandle = (data) => {
     onAddPlace({
@@ -53,17 +61,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
     >
       <fieldset className="popup-form__conteiner">
         <input
-          {...register("namecard", {
-            required: "Поле обязательно к заполнению",
-            minLength: {
-              value: 2,
-              message: "Минимум 2 символа",
-            },
-            maxLength: {
-              value: 30,
-              message: "Максимум 30 символов",
-            },
-          })}
+          {...rest}
+          ref={(input) => {
+            ref(input);
+            input && input.focus();
+          }}
           type="text"
           className={`popup-form__item ${
             errors?.namecard && "popup-form__item_type_error"
