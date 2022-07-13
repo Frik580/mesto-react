@@ -1,5 +1,5 @@
 import PopupWithForm from "./PopupWithForm";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
@@ -11,6 +11,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
     reset,
   } = useForm({
     mode: "all",
+    // defaultValues: {
+    //   namecard: "ffff",
+    //   url: "cccc",
+    // },
   });
 
   useEffect(() => {
@@ -38,7 +42,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
       name="add"
       title="Новое место"
       buttonValue={
-        onPostCardError ? "Ошибка в ссылке на картинку" : buttonValue
+        onPostCardError
+          ? "Ошибка в данных. Проверьте заполнение полей."
+          : buttonValue
       }
       isOpen={isOpen}
       onClose={onClose}
@@ -91,4 +97,4 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
   );
 }
 
-export default AddPlacePopup;
+export default React.memo(AddPlacePopup);

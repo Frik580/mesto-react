@@ -1,3 +1,5 @@
+import React from "react";
+
 function Footer() {
 const date = new Date();
 
@@ -8,4 +10,4 @@ const date = new Date();
   );
 }
 
-export default Footer;
+export default React.memo(Footer);

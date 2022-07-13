@@ -1,5 +1,5 @@
 import PopupWithForm from "./PopupWithForm";
-import { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const [buttonValue, setButtonValue] = useState("");
@@ -11,7 +11,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     onUpdateAvatar({
       avatar: inputRef.current.value,
     });
-  }
+  };
 
   useEffect(() => {
     inputRef.current.value = "";
@@ -46,4 +46,4 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   );
 }
 
-export default EditAvatarPopup;
+export default React.memo(EditAvatarPopup);

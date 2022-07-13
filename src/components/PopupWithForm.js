@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 function PopupWithForm({
   name,
@@ -15,9 +15,7 @@ function PopupWithForm({
     function handleEscClose(e) {
       e.key === "Escape" && onClose();
     }
-
     document.addEventListener("keyup", handleEscClose);
-
     return () => {
       document.removeEventListener("keyup", handleEscClose);
     };
@@ -47,6 +45,7 @@ function PopupWithForm({
         >
           <h3 className="popup-form__title">{title}</h3>
           {children}
+
           <button
             disabled={!isValid}
             className={`popup-form__button ${
@@ -63,4 +62,4 @@ function PopupWithForm({
   );
 }
 
-export default PopupWithForm;
+export default React.memo(PopupWithForm);

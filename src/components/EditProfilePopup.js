@@ -1,5 +1,5 @@
 import PopupWithForm from "./PopupWithForm";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
@@ -69,4 +69,4 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   );
 }
 
-export default EditProfilePopup;
+export default React.memo(EditProfilePopup);

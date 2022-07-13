@@ -1,3 +1,5 @@
+import React from "react";
+
 function ImagePopup({ сard, onClose }) {
   return (
     <div
@@ -22,4 +24,4 @@ function ImagePopup({ сard, onClose }) {
   );
 }
 
-export default ImagePopup;
+export default React.memo(ImagePopup);

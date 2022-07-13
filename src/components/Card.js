@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Card({ card, onCardClick, onCardDelete, onCardLike }) {
@@ -53,4 +53,4 @@ function Card({ card, onCardClick, onCardDelete, onCardLike }) {
   );
 }
 
-export default Card;
+export default React.memo(Card);
