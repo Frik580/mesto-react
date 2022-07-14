@@ -1,9 +1,10 @@
 import PopupWithForm from "./PopupWithForm";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, isPostCardError }) {
   const [buttonValue, setButtonValue] = useState("");
+  const inputRef = useRef();
   const {
     register,
     formState: { errors, isValid },
@@ -28,6 +29,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
   useEffect(() => {
     setButtonValue("Создать");
     reset();
+    inputRef.current.focus();
   }, [isOpen]);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
       reset();
     }, 2000);
     setButtonValue("Создать");
-  }, [onPostCardError]);
+  }, [isPostCardError]);
 
   const onHandle = (data) => {
     onAddPlace({
@@ -50,8 +52,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
       name="add"
       title="Новое место"
       buttonValue={
-        onPostCardError
-          ? "Ошибка в данных. Проверьте заполнение полей."
+        isPostCardError
+          ? "Ошибка в загрузке данных. Проверьте заполнение полей."
           : buttonValue
       }
       isOpen={isOpen}
@@ -62,9 +64,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onPostCardError }) {
       <fieldset className="popup-form__conteiner">
         <input
           {...rest}
-          ref={(input) => {
-            ref(input);
-            input && input.focus();
+          ref={(e) => {
+            ref(e);
+            inputRef.current = e;
           }}
           type="text"
           className={`popup-form__item ${

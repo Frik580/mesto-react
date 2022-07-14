@@ -73,7 +73,7 @@ function App() {
     api
       .postCard(data)
       .then((newCard) => {
-        setIsPostCardError(false);
+        // setIsPostCardError(false);
         setCards([newCard, ...cards]);
         closeAllPopups();
         reloadCards();
@@ -178,7 +178,7 @@ function App() {
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
-          onPostCardError={isPostCardError}
+          isPostCardError={isPostCardError}
         />
 
         <SubmitPopup

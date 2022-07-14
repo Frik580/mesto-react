@@ -1,16 +1,18 @@
 import PopupWithForm from "./PopupWithForm";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
   const [state, setState] = useState("");
   const [buttonValue, setButtonValue] = useState("");
+  const inputRef = useRef();
 
   useEffect(() => {
     setState({ name: currentUser.name, about: currentUser.about });
     setButtonValue("Сохранить");
-  }, [currentUser]);
+    inputRef.current.focus();
+  }, [currentUser, isOpen]);
 
   const handleInputChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -38,7 +40,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       <fieldset className="popup-form__conteiner">
         <input
           type="text"
-          ref={(input) => input && input.focus()}
+          ref={inputRef}
           value={state.name ?? ""}
           onChange={handleInputChange}
           id="user-name"
